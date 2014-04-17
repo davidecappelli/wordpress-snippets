@@ -1,0 +1,30 @@
+//it retrieves the tags of a post (in a single post)
+//listing them into "meta keywords" tag and creating
+//a list of link "rel" pointing to their relative urls
+//it must be placed in template's functions.php file
+
+
+add_action('wp_head', 'addKeywordsFromTags');
+function addKeywordsFromTags(){
+    if($post = get_post()){
+        if($tags = get_the_terms( $post->ID, 'post_tag' )){
+            $taglist  = "";
+            $linklist = "";
+            echo "\n\n<!-- addKeywordsFromTags() Tags -->";
+            $remain=count($tags);
+            foreach($tags as $tag){
+                if(strlen($taglist)<=120){
+                    $taglist.=strtolower($tag->name);
+                }
+                $remain--;
+                if($remain>0){
+                    $taglist.=",";
+                }
+                $linklist.="<link rel=\"help\" id=\"" . strtolower($tag->name) ."\" href=\"" . get_site_url() . "/tag/" . $tag->slug . "\" />\n";
+                
+            }
+            echo "\n<meta name=\"keywords\" content=\"" . $taglist . "\" />\n";
+            echo $linklist;
+        }
+    }
+}
