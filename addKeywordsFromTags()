@@ -7,7 +7,7 @@
 add_action('wp_head', 'addKeywordsFromTags');
 function addKeywordsFromTags(){
     if($post = get_post()){
-        if($tags = get_the_terms( $post->ID, 'post_tag' )){
+        if($tags = get_the_terms( $post->ID, 'post_tag' )){ 
             $taglist  = "";
             $linklist = "";
             echo "<!-- addKeywordsFromTags() Tags   (https://github.com/davidecappelli/wordpress-snippets/blob/master/addKeywordsFromTags%28%29) -->";
